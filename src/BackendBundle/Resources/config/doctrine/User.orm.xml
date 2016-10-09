@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="BackendBundle\Entity\User" table="user">
+    <indexes>
+      <index name="fk_user_usergroup1_idx" columns="usergroup_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="user_id_UNIQUE" columns="id"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="username" type="string" column="username" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="email" type="string" column="email" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="password" type="string" column="password" length="25" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="profilePicture" type="string" column="profile_picture" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="dateValidFrom" type="datetime" column="date_valid_from" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="dateValidTo" type="datetime" column="date_valid_to" nullable="true"/>
+    <field name="dateLastEdited" type="datetime" column="date_last_edited" nullable="true"/>
+    <many-to-one field="usergroup" target-entity="Usergroup" fetch="LAZY">
+      <join-columns>
+        <join-column name="usergroup_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
