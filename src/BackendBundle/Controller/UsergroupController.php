@@ -20,11 +20,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 /**
  * @Route("/usergroup")
  */
-class UserController extends Controller
+class UsergroupController extends Controller
 {
     /**
      * @Route("/new", name="new")
-     * @Method("Post")
+     * @Method("POST")
      */
     public function newAction(Request $request) {
         $helpers = $this->get("app.helpers");
@@ -103,6 +103,13 @@ class UserController extends Controller
         }
 
         return $helpers->json($data);
+    }
+    /**
+     * @Route("/", name="")
+     * @Method("GET")
+     */
+    public function indexAction(Request $request) {
+        return new \Symfony\Component\HttpFoundation\JsonResponse('Hello World');
     }
 
 }
