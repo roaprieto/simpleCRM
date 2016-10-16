@@ -2,12 +2,16 @@
 
 namespace BackendBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Usergroup
  */
 class Usergroup
 {
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3)
      * @var string
      */
     private $name;
@@ -31,11 +35,6 @@ class Usergroup
      * @var integer
      */
     private $id;
-
-    /**
-     * @var \BackendBundle\Entity\User
-     */
-    private $user;
 
 
     /**
@@ -135,20 +134,6 @@ class Usergroup
     }
 
     /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return Usergroup
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -157,28 +142,5 @@ class Usergroup
     {
         return $this->id;
     }
-
-    /**
-     * Set user
-     *
-     * @param \BackendBundle\Entity\User $user
-     *
-     * @return Usergroup
-     */
-    public function setUser(\BackendBundle\Entity\User $user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \BackendBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 }
+

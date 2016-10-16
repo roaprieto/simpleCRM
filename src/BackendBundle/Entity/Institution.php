@@ -151,7 +151,7 @@ class Institution
      *
      * @return Institution
      */
-    public function setUsergroup(\BackendBundle\Entity\Usergroup $usergroup = null)
+    public function setUsergroup(Usergroup $usergroup = null)
     {
         $this->usergroup = $usergroup;
 
@@ -168,3 +168,4 @@ class Institution
         return $this->usergroup;
     }
 }
+

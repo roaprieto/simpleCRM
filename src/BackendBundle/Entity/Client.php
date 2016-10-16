@@ -369,7 +369,7 @@ class Client
      *
      * @return Client
      */
-    public function setClienttype(\BackendBundle\Entity\Clienttype $clienttype = null)
+    public function setClienttype(Clienttype $clienttype = null)
     {
         $this->clienttype = $clienttype;
 
@@ -393,7 +393,7 @@ class Client
      *
      * @return Client
      */
-    public function setInstitution(\BackendBundle\Entity\Institution $institution = null)
+    public function setInstitution(Institution $institution = null)
     {
         $this->institution = $institution;
 
@@ -417,7 +417,7 @@ class Client
      *
      * @return Client
      */
-    public function setUser(\BackendBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -441,7 +441,7 @@ class Client
      *
      * @return Client
      */
-    public function setUsergroup(\BackendBundle\Entity\Usergroup $usergroup = null)
+    public function setUsergroup(Usergroup $usergroup = null)
     {
         $this->usergroup = $usergroup;
 
@@ -458,3 +458,4 @@ class Client
         return $this->usergroup;
     }
 }
+

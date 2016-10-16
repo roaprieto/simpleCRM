@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services;
 
+use Doctrine\ORM\EntityManager;
 use Firebase\JWT\JWT;
 
 class JwtAuth
@@ -9,15 +10,25 @@ class JwtAuth
     private $em;
     private $key;
 
-    public function __construct($em)
+    public function __construct(EntityManager $em)
     {
         $this->em = $em;
-        $this->key = "clave-secreta";
+        $this->key = "o38vUH(nNFG_S__-eg-sdh";
     }
 
+    /**
+     * Sing a user up
+     *
+     * @param $email
+     * @param $password
+     * @param null $getHash
+     *
+     * @return bool|object|string returns "false" if there no user with these credentials (email + password).
+     * If there is a user with the credentials, returns the identity (the user) if $getHash = null. Otherwise returns
+     * the JWT
+     */
     public function signup($email, $password, $getHash = NULL)
     {
-
         $user = $this->em->getRepository("BackendBundle:User")->findOneBy(
             array(
                 "email" => $email,
@@ -30,9 +41,7 @@ class JwtAuth
             $signup = true;
         }
 
-
         if ($signup == true) {
-
             $token = array(
                 "sub" => $user->getId(),
                 "username" => $user->getUsername(),
@@ -51,21 +60,29 @@ class JwtAuth
                 return $decoded;
             }
         } else {
-            return array("status" => "error", "data" => "Login failed!");
+            return false;
         }
     }
 
+    /**
+     * Check if the token §jwt is valid
+     *
+     * @param $jwt
+     * @param bool $getIdentity
+     *
+     * @return bool|object returns "false" if the token is not valid or there is not user with this token.
+     * Returns "true" if $getIdentity = false or the user entity if $getIdentity != false
+     */
     public function checkToken($jwt, $getIdentity = false)
     {
         $key = $this->key;
-        $auth = false;
 
         try {
             $decoded = JWT::decode($jwt, $key, array('HS256'));
         } catch(\UnexpectedValueException $e) {
-            $auth = false;
+            return false;
         } catch(\DomainException $e) {
-            $auth = false;
+            return false;
         }
 
         if (isset($decoded->sub)) {
@@ -79,7 +96,5 @@ class JwtAuth
         } else {
             return $auth;
         }
-
-
     }
 }

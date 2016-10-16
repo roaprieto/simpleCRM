@@ -10,6 +10,12 @@
     <id name="id" type="bigint" column="id">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="owner" type="string" column="owner" length="45" nullable="false">
+      <options>
+        <option name="fixed"/>
+        <option name="default">0</option>
+      </options>
+    </field>
     <field name="username" type="string" column="username" length="50" nullable="false">
       <options>
         <option name="fixed"/>
@@ -20,7 +26,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="password" type="string" column="password" length="25" nullable="false">
+    <field name="password" type="string" column="password" length="255" nullable="false">
       <options>
         <option name="fixed"/>
       </options>
@@ -30,11 +36,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="dateValidFrom" type="datetime" column="date_valid_from" nullable="false">
-      <options>
-        <option name="default">CURRENT_TIMESTAMP</option>
-      </options>
-    </field>
+    <field name="dateValidFrom" type="datetime" column="date_valid_from" nullable="true"/>
     <field name="dateValidTo" type="datetime" column="date_valid_to" nullable="true"/>
     <field name="dateLastEdited" type="datetime" column="date_last_edited" nullable="true"/>
     <many-to-one field="usergroup" target-entity="Usergroup" fetch="LAZY">

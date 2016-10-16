@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="BackendBundle\Entity\Usergroup" table="usergroup">
-    <indexes>
-      <index name="fk_usergroup_user1_idx" columns="user_id"/>
-    </indexes>
     <unique-constraints>
       <unique-constraint name="user_id_UNIQUE" columns="id"/>
     </unique-constraints>
-    <id name="id" type="bigint" column="id"/>
-    <id name="user" association-key="true"/>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
     <field name="name" type="string" column="name" length="255" nullable="false">
       <options>
         <option name="fixed"/>
@@ -17,10 +15,5 @@
     <field name="dateValidFrom" type="datetime" column="date_valid_from" nullable="true"/>
     <field name="dateValidTo" type="datetime" column="date_valid_to" nullable="true"/>
     <field name="dateLastEdited" type="datetime" column="date_last_edited" nullable="true"/>
-    <one-to-one field="user" target-entity="User" fetch="LAZY">
-      <join-columns>
-        <join-column name="user_id" referenced-column-name="id"/>
-      </join-columns>
-    </one-to-one>
   </entity>
 </doctrine-mapping>

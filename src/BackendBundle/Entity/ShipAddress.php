@@ -281,7 +281,7 @@ class ShipAddress
      *
      * @return ShipAddress
      */
-    public function setClient(\BackendBundle\Entity\Client $client)
+    public function setClient(Client $client)
     {
         $this->client = $client;
 
@@ -298,3 +298,4 @@ class ShipAddress
         return $this->client;
     }
 }
+

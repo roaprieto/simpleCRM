@@ -252,7 +252,7 @@ class ExistentBussines
      *
      * @return ExistentBussines
      */
-    public function setClientsContact(\BackendBundle\Entity\ClientsContact $clientsContact)
+    public function setClientsContact(ClientsContact $clientsContact)
     {
         $this->clientsContact = $clientsContact;
 
@@ -269,3 +269,4 @@ class ExistentBussines
         return $this->clientsContact;
     }
 }
+

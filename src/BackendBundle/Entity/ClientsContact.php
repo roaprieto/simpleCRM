@@ -596,7 +596,7 @@ class ClientsContact
      *
      * @return ClientsContact
      */
-    public function setClientsContact(\BackendBundle\Entity\ClientsContact $clientsContact = null)
+    public function setClientsContact(ClientsContact $clientsContact = null)
     {
         $this->clientsContact = $clientsContact;
 
@@ -620,7 +620,7 @@ class ClientsContact
      *
      * @return ClientsContact
      */
-    public function setUser(\BackendBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -644,7 +644,7 @@ class ClientsContact
      *
      * @return ClientsContact
      */
-    public function setClient(\BackendBundle\Entity\Client $client = null)
+    public function setClient(Client $client = null)
     {
         $this->client = $client;
 
@@ -661,3 +661,4 @@ class ClientsContact
         return $this->client;
     }
 }
+

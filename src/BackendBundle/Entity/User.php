@@ -2,6 +2,8 @@
 
 namespace BackendBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * User
  */
@@ -10,14 +12,27 @@ class User
     /**
      * @var string
      */
+    private $owner = '0';
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3)
+     * @var string
+     */
     private $username;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      * @var string
      */
     private $email;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      */
     private $password;
@@ -30,7 +45,7 @@ class User
     /**
      * @var \DateTime
      */
-    private $dateValidFrom = 'CURRENT_TIMESTAMP';
+    private $dateValidFrom;
 
     /**
      * @var \DateTime
@@ -52,6 +67,30 @@ class User
      */
     private $usergroup;
 
+
+    /**
+     * Set owner
+     *
+     * @param string $owner
+     *
+     * @return User
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return string
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
 
     /**
      * Set username
@@ -123,6 +162,30 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set profilePicture
+     *
+     * @param string $profilePicture
+     *
+     * @return User
+     */
+    public function setProfilePicture($profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    /**
+     * Get profilePicture
+     *
+     * @return string
+     */
+    public function getProfilePicture()
+    {
+        return $this->profilePicture;
     }
 
     /**
@@ -214,7 +277,7 @@ class User
      *
      * @return User
      */
-    public function setUsergroup(\BackendBundle\Entity\Usergroup $usergroup = null)
+    public function setUsergroup(Usergroup $usergroup = null)
     {
         $this->usergroup = $usergroup;
 
@@ -230,28 +293,5 @@ class User
     {
         return $this->usergroup;
     }
-
-    /**
-     * Set profilePicture
-     *
-     * @param string $profilePicture
-     *
-     * @return User
-     */
-    public function setProfilePicture($profilePicture)
-    {
-        $this->profilePicture = $profilePicture;
-
-        return $this;
-    }
-
-    /**
-     * Get profilePicture
-     *
-     * @return string
-     */
-    public function getProfilePicture()
-    {
-        return $this->profilePicture;
-    }
 }
+

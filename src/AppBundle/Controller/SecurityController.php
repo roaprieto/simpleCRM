@@ -9,11 +9,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\Email;
 
-class DefaultController extends Controller
+class SecurityController extends Controller
 {
     /**
+     * login action
+     *
      * @Route("/login", name="login")
-     * @Method("Post")
+     * @Method("POST")
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function loginAction(Request $request)
     {
@@ -31,51 +36,39 @@ class DefaultController extends Controller
 
             $emailConstraint = new Email();
             $emailConstraint->message = "This email is not valid";
-
             $validateEmail = $this->get("validator")->validate($email, $emailConstraint);
 
-            // Cifrar password
-            $pwd = hash('sha256', $password);
+            $pwd = hash('sha512', $password);
 
-            if (count($validateEmail) == 0 && $password != null) {
+            if (count($validateEmail) == 0 && $password != null && $email != null) {
                 if ($getHash == null) {
                     $signup = $jwtAuth->signup($email, $pwd);
                 } else {
                     $signup = $jwtAuth->signup($email, $pwd, true);
                 }
-                return new JsonResponse($signup);
+                if ($signup === false) {
+                    $data = array(
+                        'status' => 'error',
+                        'msg' => 'Invalid credentials. User doesn\'t exist',
+                        'code' => 404
+                    );
+                } else {
+                    return new JsonResponse($signup);
+                }
             } else {
-                return $helpers->json(array(
-                    "status" => "error",
-                    "data" => "Login not valid!"
-                ));
+                $data = array(
+                    'status' => 'error',
+                    'msg' => 'Wrong parameters sent',
+                    'code' => 400
+                );
             }
-
         } else {
-            echo "send json with post";
+            $data = array(
+                'status' => 'error',
+                'msg' => 'Wrong parameters sent',
+                'code' => 400
+            );
         }
-
-        die();
-
-    }
-
-
-    /**
-     * @Route("/pruebas", name="pruebas")
-     */
-    public function pruebasAction(Request $request)
-    {
-        $helpers = $this->get("app.helpers");
-        $hash = $request->get("authorization", null);
-        $check = $helpers->authCheck($hash, true);
-
-        var_dump($check);
-        die();
-
-
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('BackendBundle:User')->findAll();
-
-	   return $helpers->json($users);
+        return $helpers->json($data);
     }
 }

@@ -223,7 +223,7 @@ class Task
      *
      * @return Task
      */
-    public function setClientsContact(\BackendBundle\Entity\ClientsContact $clientsContact)
+    public function setClientsContact(ClientsContact $clientsContact)
     {
         $this->clientsContact = $clientsContact;
 
@@ -240,3 +240,4 @@ class Task
         return $this->clientsContact;
     }
 }
+

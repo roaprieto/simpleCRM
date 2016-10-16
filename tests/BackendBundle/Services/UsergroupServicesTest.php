@@ -19,7 +19,7 @@ class UsergroupServicesTest extends KernelTestCase
         self::bootKernel();
 
         $this->helper = static::$kernel->getContainer()
-            ->get('app.helper')
+            ->get('app.helpers')
         ;
     }
 

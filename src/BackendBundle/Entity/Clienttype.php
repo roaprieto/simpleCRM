@@ -151,7 +151,7 @@ class Clienttype
      *
      * @return Clienttype
      */
-    public function setUsergroup(\BackendBundle\Entity\Usergroup $usergroup = null)
+    public function setUsergroup(Usergroup $usergroup = null)
     {
         $this->usergroup = $usergroup;
 
@@ -168,3 +168,4 @@ class Clienttype
         return $this->usergroup;
     }
 }
+
